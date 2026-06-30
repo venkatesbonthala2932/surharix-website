@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Surharix India Pvt Ltd — IT Training, Placement Assistance & IT Solutions</title>
+<meta name="description" content="Surharix India Pvt Ltd offers job-focused IT training (Oracle Fusion Cloud, AI/ML, Web Development, Linux, Cloud & DevOps), placement assistance through our hiring network, and IT solutions for businesses."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          background: "#0b1120",
+          surface: "#0f172a",
+          "surface-2": "#111c34",
+          ink: "#e2e8f0",
+          muted: "#94a3b8",
+          line: "#1e293b",
+          brand: "#3b82f6",
+          "brand-dark": "#2563eb",
+          "brand-light": "#60a5fa",
+        },
+        fontFamily: {
+          display: ["Geist", "sans-serif"],
+          sans: ["Inter", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"],
+        },
+        borderRadius: { DEFAULT: "0.375rem", lg: "0.5rem", xl: "0.75rem" },
+        maxWidth: { container: "1200px" },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #0b1120; }
+
+  .glass-card {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(30, 41, 59, 0.9);
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .glass-card:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+  }
+
+  .btn-primary { background: #2563eb; transition: background .25s ease, box-shadow .25s ease; }
+  .btn-primary:hover { background: #3b82f6; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35); }
+
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+  .logo-item { display: flex; align-items: center; gap: .6rem; color: #94a3b8; transition: color .25s ease; }
+  .logo-item:hover { color: #e2e8f0; }
+  .logo-item img { height: 26px; width: 26px; filter: grayscale(100%); opacity: .6; transition: filter .25s ease, opacity .25s ease; }
+  .logo-item:hover img { filter: grayscale(0%); opacity: 1; }
+
+  /* Futuristic background: soft glowing orbs + animated network canvas */
+  .bg-glow { position: absolute; border-radius: 9999px; filter: blur(90px); opacity: .55; }
+  .bg-glow-1 { width: 620px; height: 620px; background: radial-gradient(circle, rgba(59,130,246,.30), rgba(59,130,246,0) 70%); top: -160px; left: -120px; animation: glowfloat 16s ease-in-out infinite alternate; }
+  .bg-glow-2 { width: 720px; height: 720px; background: radial-gradient(circle, rgba(37,99,235,.22), rgba(37,99,235,0) 70%); bottom: -220px; right: -160px; animation: glowfloat 20s ease-in-out infinite alternate-reverse; }
+  .bg-glow-3 { width: 480px; height: 480px; background: radial-gradient(circle, rgba(96,165,250,.16), rgba(96,165,250,0) 70%); top: 38%; left: 52%; animation: glowfloat 24s ease-in-out infinite alternate; }
+  @keyframes glowfloat { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,30px) scale(1.08); } }
+  #bg-net { display: block; width: 100%; height: 100%; }
+  @media (prefers-reduced-motion: reduce) { .bg-glow { animation: none; } }
+
+  .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee-track { display: flex; gap: 3.5rem; width: max-content; animation: marquee 34s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+</style>
+</head>
+<body class="bg-background text-ink antialiased font-sans relative min-h-screen">
+
+<!-- Futuristic live background: glowing orbs + animated node network -->
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+<div class="bg-glow bg-glow-3"></div>
+<canvas id="bg-net"></canvas>
+<script>
+(function () {
+  const canvas = document.getElementById('bg-net');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w = 0, h = 0, particles = [], raf = null;
+  const mouse = { x: null, y: null };
+
+  function build() {
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.min(110, Math.round(w * h / 15000));
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+        r: Math.random() * 1.4 + 0.8,
+      });
+    }
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of particles) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+    }
+    const LINK = 132;
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+        if (d < LINK) {
+          ctx.strokeStyle = 'rgba(96,165,250,' + (1 - d / LINK) * 0.16 + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      if (mouse.x !== null) {
+        const dx = a.x - mouse.x, dy = a.y - mouse.y, d = Math.hypot(dx, dy);
+        if (d < 170) {
+          ctx.strokeStyle = 'rgba(59,130,246,' + (1 - d / 170) * 0.35 + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        }
+      }
+    }
+    for (const p of particles) {
+      ctx.fillStyle = 'rgba(125,180,255,0.75)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  function loop() { render(); raf = requestAnimationFrame(loop); }
+  function start() { if (!raf && !reduce) raf = requestAnimationFrame(loop); }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+  window.addEventListener('resize', build);
+  window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+
+  build();
+  if (reduce) { render(); } else { start(); }
+})();
+</script>
+</div>
+
+<!-- Content -->
+<div class="relative z-10 w-full min-h-screen flex flex-col">
+
+<!-- Header -->
+<header class="bg-background/80 backdrop-blur-md fixed top-0 w-full border-b border-line flex justify-between items-center px-4 md:px-16 py-4 z-50">
+<a href="#" class="flex items-center gap-2">
+<img src="{{ url_for('static', filename='logo.png') }}" alt="Surharix India Pvt Ltd" class="h-9 md:h-11 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
+<span class="hidden items-center gap-2">
+<span class="material-symbols-outlined text-brand-light text-[28px]">deployed_code</span>
+<span class="font-display text-2xl font-bold tracking-tight text-white">Surharix</span>
+</span>
+</a>
+<nav class="hidden md:flex items-center gap-8 text-sm text-muted">
+<a class="hover:text-white transition-colors" href="#courses">Courses</a>
+<a class="hover:text-white transition-colors" href="#placement">Placement</a>
+<a class="hover:text-white transition-colors" href="#solutions">IT Solutions</a>
+<a class="hover:text-white transition-colors" href="#contact">Contact</a>
+</nav>
+<a href="#contact" class="btn-primary text-white font-medium text-sm px-5 py-2.5 rounded-lg">
+  Enquire Now
+</a>
+</header>
+
+<!-- Main -->
+<main class="flex-grow pt-[88px] flex flex-col gap-20 md:gap-28 pb-24">
+
+<!-- Hero -->
+<section class="px-4 md:px-16 pt-12 md:pt-24 flex flex-col items-start gap-6 max-w-container mx-auto w-full">
+<div class="inline-flex items-center gap-2 border border-line bg-surface/60 backdrop-blur-sm px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+<span class="font-mono text-xs tracking-widest text-brand-light uppercase">Train · Get Placed · Build</span>
+</div>
+<h1 class="font-display text-4xl md:text-6xl text-white font-bold leading-[1.1] max-w-4xl">
+  Learn in-demand IT skills.<br/>
+<span class="text-muted">Get placed. Get solutions.</span>
+</h1>
+<p class="text-lg text-muted max-w-2xl mt-2 leading-relaxed">
+  Surharix India Pvt Ltd is an IT training and solutions company. We train you in industry skills like
+  Oracle Fusion Cloud, AI and software development, support you with placement through our hiring network,
+  and deliver IT solutions for businesses — all under one roof.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
+<a href="#courses" class="btn-primary text-white font-medium px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 w-full sm:w-auto">
+  Explore Courses
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</a>
+<a href="#solutions" class="border border-line hover:border-brand text-ink hover:text-white font-medium px-7 py-3.5 rounded-lg transition-colors w-full sm:w-auto text-center">
+  IT Solutions for Business
+</a>
+</div>
+</section>
+
+<!-- Trust badges -->
+<section class="px-4 md:px-16 max-w-container mx-auto w-full -mt-8 md:-mt-12">
+<p class="font-mono text-xs tracking-widest text-muted uppercase text-center mb-8">Skills &amp; platforms we train and work with</p>
+<div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-16">
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/oracle" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Oracle</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/openai" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">OpenAI</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/amazonwebservices" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">AWS</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/microsoftazure" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Microsoft</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/linux" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Linux</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/googlecloud" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Google Cloud</span></div>
+</div>
+</section>
+
+<!-- What we do: two pillars -->
+<section id="about" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">dashboard</span>
+  What we do
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">01 / OVERVIEW</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">school</span>
+</div>
+<h3 class="font-display text-2xl text-white font-bold">Training &amp; Placement</h3>
+<p class="text-muted leading-relaxed">
+  Job-focused training in in-demand IT skills, taught by industry practitioners — followed by
+  placement assistance through our hiring network. We help learners, including freshers and
+  career-switchers, become job-ready and connect them with opportunities.
+</p>
+<a href="#courses" class="mt-2 text-brand-light text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">View courses <span class="material-symbols-outlined text-base">chevron_right</span></a>
+</div>
+<div class="glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">build</span>
+</div>
+<h3 class="font-display text-2xl text-white font-bold">IT Solutions</h3>
+<p class="text-muted leading-relaxed">
+  We solve real IT problems for businesses — building software and websites, integrating AI, and
+  providing on-demand technical support. A reliable solutions partner for your projects, without the
+  overhead of hiring a full in-house team.
+</p>
+<a href="#solutions" class="mt-2 text-brand-light text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">Explore solutions <span class="material-symbols-outlined text-base">chevron_right</span></a>
+</div>
+</div>
+</section>
+
+<!-- Courses -->
+<section id="courses" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">menu_book</span>
+  Our courses
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">02 / TRAINING</span>
+</div>
+<p class="text-muted max-w-2xl leading-relaxed">
+  Practical, project-based programs designed to international standards — built to make you job-ready,
+  not just certified.
+</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">cloud_sync</span>
+<h3 class="font-display text-lg text-white font-semibold">Oracle Fusion Cloud</h3>
+<p class="text-sm text-muted leading-relaxed">Oracle Fusion / ERP cloud applications and modules for enterprise careers.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">neurology</span>
+<h3 class="font-display text-lg text-white font-semibold">AI &amp; Machine Learning</h3>
+<p class="text-sm text-muted leading-relaxed">Data science, ML and modern LLMs with hands-on, real-world projects.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">code</span>
+<h3 class="font-display text-lg text-white font-semibold">Full-Stack Web Development</h3>
+<p class="text-sm text-muted leading-relaxed">Python, JavaScript, React and APIs — build and ship complete applications.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">terminal</span>
+<h3 class="font-display text-lg text-white font-semibold">Linux &amp; System Administration</h3>
+<p class="text-sm text-muted leading-relaxed">Linux fundamentals, shell scripting and server administration skills.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">cloud</span>
+<h3 class="font-display text-lg text-white font-semibold">Cloud &amp; DevOps</h3>
+<p class="text-sm text-muted leading-relaxed">AWS &amp; Azure, Docker, Kubernetes and CI/CD pipelines for modern delivery.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">database</span>
+<h3 class="font-display text-lg text-white font-semibold">Data Analytics &amp; SQL</h3>
+<p class="text-sm text-muted leading-relaxed">SQL, databases, dashboards and analytics for data-driven roles.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">developer_mode</span>
+<h3 class="font-display text-lg text-white font-semibold">Python Programming</h3>
+<p class="text-sm text-muted leading-relaxed">From fundamentals to automation — the foundation for every IT career.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
+<span class="material-symbols-outlined text-brand-light text-3xl">security</span>
+<h3 class="font-display text-lg text-white font-semibold">Cybersecurity Essentials</h3>
+<p class="text-sm text-muted leading-relaxed">Security fundamentals and best practices for a safer, in-demand skillset.</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-l-4 border-l-brand">
+<p class="text-ink"><span class="text-white font-semibold">Don't see your course?</span> We tailor training for individuals and corporate teams.</p>
+<a href="#contact" class="btn-primary text-white font-medium px-6 py-3 rounded-lg whitespace-nowrap">Ask about a course</a>
+</div>
+</section>
+
+<!-- Placement journey -->
+<section id="placement" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">handshake</span>
+  From learning to a career
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">03 / PLACEMENT</span>
+</div>
+<p class="text-muted max-w-2xl leading-relaxed">
+  Training is only half the journey. We provide placement assistance to help job-seekers — including
+  those currently out of work — turn new skills into real opportunities through our network and connections.
+</p>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">1</div>
+<h3 class="font-display text-lg text-white font-semibold">Learn</h3>
+<p class="text-sm text-muted leading-relaxed">Master a skill with practical, mentor-led training.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">2</div>
+<h3 class="font-display text-lg text-white font-semibold">Build Projects</h3>
+<p class="text-sm text-muted leading-relaxed">Create real, portfolio-ready work that employers value.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">3</div>
+<h3 class="font-display text-lg text-white font-semibold">Get Career-Ready</h3>
+<p class="text-sm text-muted leading-relaxed">Resume building, mock interviews and soft-skills coaching.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">4</div>
+<h3 class="font-display text-lg text-white font-semibold">Get Referred</h3>
+<p class="text-sm text-muted leading-relaxed">Introductions to roles through our hiring network.</p>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">5</div>
+<h3 class="font-display text-lg text-white font-semibold">Land a Job</h3>
+<p class="text-sm text-muted leading-relaxed">Ongoing support until you start your new career.</p>
+</div>
+</div>
+</section>
+
+<!-- IT Solutions -->
+<section id="solutions" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">deployed_code</span>
+  IT solutions for business
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">04 / SOLUTIONS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card rounded-xl p-7 flex flex-col gap-4">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">smart_toy</span>
+</div>
+<h3 class="font-display text-xl text-white font-semibold">AI &amp; Software Development</h3>
+<p class="text-muted leading-relaxed">Custom software and AI-powered tools, built and delivered by our engineering team.</p>
+</div>
+<div class="glass-card rounded-xl p-7 flex flex-col gap-4">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">language</span>
+</div>
+<h3 class="font-display text-xl text-white font-semibold">Web &amp; Application Development</h3>
+<p class="text-muted leading-relaxed">Modern, responsive websites and business applications tailored to your needs.</p>
+</div>
+<div class="glass-card rounded-xl p-7 flex flex-col gap-4">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">support_agent</span>
+</div>
+<h3 class="font-display text-xl text-white font-semibold">IT Support &amp; Consulting</h3>
+<p class="text-muted leading-relaxed">On-demand help for IT problems, integrations and technical guidance for your business.</p>
+</div>
+</div>
+</section>
+
+<!-- Results / metrics -->
+<section id="results" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">trending_up</span>
+  Why Surharix
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">05 / IMPACT</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="glass-card rounded-xl p-6 text-center">
+<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">500+</div>
+<p class="text-sm text-muted mt-2">Learners trained</p>
+</div>
+<div class="glass-card rounded-xl p-6 text-center">
+<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">50+</div>
+<p class="text-sm text-muted mt-2">Hiring network partners</p>
+</div>
+<div class="glass-card rounded-xl p-6 text-center">
+<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">8+</div>
+<p class="text-sm text-muted mt-2">Industry courses</p>
+</div>
+<div class="glass-card rounded-xl p-6 text-center">
+<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">100%</div>
+<p class="text-sm text-muted mt-2">Hands-on, project-based</p>
+</div>
+</div>
+</section>
+
+<!-- Tech marquee -->
+<section class="flex flex-col gap-8 w-full">
+<div class="px-4 md:px-16 max-w-container mx-auto w-full">
+<p class="font-mono text-xs tracking-widest text-muted uppercase text-center">Technologies we teach &amp; build with</p>
+</div>
+<div class="marquee w-full">
+<div class="marquee-track">
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/python" onerror="this.style.display='none'"/><span class="font-display font-medium">Python</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/oracle" onerror="this.style.display='none'"/><span class="font-display font-medium">Oracle</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/linux" onerror="this.style.display='none'"/><span class="font-display font-medium">Linux</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/react" onerror="this.style.display='none'"/><span class="font-display font-medium">React</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/amazonwebservices" onerror="this.style.display='none'"/><span class="font-display font-medium">AWS</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/docker" onerror="this.style.display='none'"/><span class="font-display font-medium">Docker</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/kubernetes" onerror="this.style.display='none'"/><span class="font-display font-medium">Kubernetes</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/postgresql" onerror="this.style.display='none'"/><span class="font-display font-medium">SQL</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/pytorch" onerror="this.style.display='none'"/><span class="font-display font-medium">PyTorch</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/git" onerror="this.style.display='none'"/><span class="font-display font-medium">Git</span></div>
+<!-- duplicate for seamless loop -->
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/python" onerror="this.style.display='none'"/><span class="font-display font-medium">Python</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/oracle" onerror="this.style.display='none'"/><span class="font-display font-medium">Oracle</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/linux" onerror="this.style.display='none'"/><span class="font-display font-medium">Linux</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/react" onerror="this.style.display='none'"/><span class="font-display font-medium">React</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/amazonwebservices" onerror="this.style.display='none'"/><span class="font-display font-medium">AWS</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/docker" onerror="this.style.display='none'"/><span class="font-display font-medium">Docker</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/kubernetes" onerror="this.style.display='none'"/><span class="font-display font-medium">Kubernetes</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/postgresql" onerror="this.style.display='none'"/><span class="font-display font-medium">SQL</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/pytorch" onerror="this.style.display='none'"/><span class="font-display font-medium">PyTorch</span></div>
+<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/git" onerror="this.style.display='none'"/><span class="font-display font-medium">Git</span></div>
+</div>
+</div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">mail</span>
+  Get in touch
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">06 / CONTACT</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+<div class="flex flex-col gap-5">
+<p class="text-lg text-muted leading-relaxed">
+  Whether you want to train with us, get career &amp; placement support, or need an IT problem solved —
+  reach out and we'll get back to you, usually within one business day.
+</p>
+<ul class="flex flex-col gap-3">
+<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">school</span> Job-focused training in in-demand IT skills</li>
+<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">handshake</span> Placement assistance through our network</li>
+<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">build</span> IT solutions for your business</li>
+</ul>
+</div>
+<div class="glass-card rounded-xl p-6 md:p-8 flex flex-col gap-5 justify-center">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">mail</span>
+</div>
+<div>
+<h3 class="font-display text-xl text-white font-semibold mb-1">Email us</h3>
+<p class="text-muted">Tell us a little about what you need — a course, placement help, or an IT project — and we'll take it from there.</p>
+</div>
+<a href="mailto:surharixitsolutions@gmail.com?subject=Enquiry%20from%20Surharix%20website" class="btn-primary text-white font-medium px-6 py-3.5 rounded-lg flex items-center justify-center gap-2 break-all">
+<span class="material-symbols-outlined text-lg">mail</span>
+  surharixitsolutions@gmail.com
+</a>
+<p class="text-sm text-muted text-center">We typically reply within one business day.</p>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface w-full py-12 border-t border-line mt-auto relative z-50">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-16 max-w-container mx-auto">
+<div class="flex flex-col gap-4">
+<a href="#" class="flex items-center gap-2">
+<img src="{{ url_for('static', filename='logo.png') }}" alt="Surharix India Pvt Ltd" class="h-9 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
+<span class="hidden items-center gap-2">
+<span class="material-symbols-outlined text-brand-light text-[24px]">deployed_code</span>
+<span class="font-display text-xl text-white font-bold tracking-tight">Surharix</span>
+</span>
+</a>
+<p class="text-sm text-muted leading-relaxed">
+  © 2026 Surharix India Pvt Ltd.<br/>IT training, placement assistance &amp; solutions.
+</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-semibold text-white mb-2">Explore</h4>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#courses">Courses</a>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#placement">Placement</a>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#solutions">IT Solutions</a>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#contact">Contact</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-semibold text-white mb-2">Location</h4>
+<p class="text-sm text-muted leading-relaxed">
+  Plot no 23, Phase 4, Panchayati Raj Teachers colony, chaitanya nagar, karmanghat<br/>Hyderabad, Telangana<br/>India 500081
+</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-semibold text-white mb-2">Contact</h4>
+<a class="text-sm text-muted hover:text-white transition-colors flex items-center gap-2" href="mailto:surharixitsolutions@gmail.com">
+<span class="material-symbols-outlined text-base">mail</span>
+  surharixitsolutions@gmail.com
+</a>
+</div>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
