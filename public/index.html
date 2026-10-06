@@ -4,12 +4,12 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link rel="canonical" href="https://surharix.com/"/>
-<title>Surharix India Pvt Ltd — IT Training, Placement Assistance & IT Solutions</title>
-<meta name="description" content="Surharix India Pvt Ltd offers job-focused IT training (Oracle Fusion Cloud, AI/ML, Web Development, Linux, Cloud & DevOps), placement assistance through our hiring network, and IT solutions for businesses."/>
+<title>Surharix — Construction Site Management Software for Builders</title>
+<meta name="description" content="Surharix helps builders and contractors track every construction site in one place — work progress, materials like cement and steel, labour attendance, safety and costs — from the site to the office. Available in English, Telugu and Hindi."/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Noto+Sans+Telugu:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
@@ -26,11 +26,15 @@
           brand: "#3b82f6",
           "brand-dark": "#2563eb",
           "brand-light": "#60a5fa",
+          // Construction accent — the orange from the Surharix logo. Use sparingly (~10%).
+          site: "#F58A07",
+          "site-light": "#FBA94C",
         },
+        // Noto fonts are fallbacks so Telugu and Hindi letters display properly
         fontFamily: {
-          display: ["Geist", "sans-serif"],
-          sans: ["Inter", "sans-serif"],
-          mono: ["JetBrains Mono", "monospace"],
+          display: ["Geist", "Noto Sans Telugu", "Noto Sans Devanagari", "sans-serif"],
+          sans: ["Inter", "Noto Sans Telugu", "Noto Sans Devanagari", "sans-serif"],
+          mono: ["JetBrains Mono", "Noto Sans Telugu", "Noto Sans Devanagari", "monospace"],
         },
         borderRadius: { DEFAULT: "0.375rem", lg: "0.5rem", xl: "0.75rem" },
         maxWidth: { container: "1200px" },
@@ -55,459 +59,614 @@
     box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
   }
 
-  .btn-primary { background: #2563eb; transition: background .25s ease, box-shadow .25s ease; }
-  .btn-primary:hover { background: #3b82f6; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35); }
+  /* Orange "Book a Demo" button — dark text keeps it readable on orange */
+  .btn-accent { background: #F58A07; color: #0b1120; transition: background .25s ease, box-shadow .25s ease; }
+  .btn-accent:hover { background: #FBA13A; box-shadow: 0 8px 24px rgba(245, 138, 7, 0.35); }
 
   .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
 
-  .logo-item { display: flex; align-items: center; gap: .6rem; color: #94a3b8; transition: color .25s ease; }
-  .logo-item:hover { color: #e2e8f0; }
-  .logo-item img { height: 26px; width: 26px; filter: grayscale(100%); opacity: .6; transition: filter .25s ease, opacity .25s ease; }
-  .logo-item:hover img { filter: grayscale(0%); opacity: 1; }
+  /* Language buttons (EN / తె / हि) */
+  .lang-btn { padding: .3rem .6rem; border-radius: .375rem; color: #94a3b8; transition: background .2s ease, color .2s ease; }
+  .lang-btn:hover { color: #fff; }
+  .lang-btn[aria-pressed="true"] { background: rgba(59,130,246,.22); color: #fff; }
 
-  /* Futuristic background: soft glowing orbs + animated network canvas */
+  /* Telugu & Hindi: no wide letter-spacing or capitals, a little more line height */
+  html:lang(te) .font-mono, html:lang(hi) .font-mono { letter-spacing: 0; text-transform: none; }
+  html:lang(te) h1, html:lang(hi) h1 { line-height: 1.3; }
+  @media (min-width: 768px) { html:lang(te) h1 { font-size: 2.75rem; } html:lang(hi) h1 { font-size: 3.25rem; } }
+  html:lang(te) h2, html:lang(te) h3, html:lang(hi) h2, html:lang(hi) h3 { line-height: 1.45; }
+
+  /* FAQ accordion */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .faq-icon { transform: rotate(45deg); }
+  .faq-icon { transition: transform .2s ease; }
+
+  /* Background: engineering blueprint grid (small squares + bolder lines every 5th) + soft glowing orbs */
+  .bg-blueprint {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(96,165,250,.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(96,165,250,.10) 1px, transparent 1px),
+      linear-gradient(rgba(96,165,250,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(96,165,250,.045) 1px, transparent 1px);
+    background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, rgba(0,0,0,.35) 80%);
+    mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, rgba(0,0,0,.35) 80%);
+  }
   .bg-glow { position: absolute; border-radius: 9999px; filter: blur(90px); opacity: .55; }
   .bg-glow-1 { width: 620px; height: 620px; background: radial-gradient(circle, rgba(59,130,246,.30), rgba(59,130,246,0) 70%); top: -160px; left: -120px; animation: glowfloat 16s ease-in-out infinite alternate; }
   .bg-glow-2 { width: 720px; height: 720px; background: radial-gradient(circle, rgba(37,99,235,.22), rgba(37,99,235,0) 70%); bottom: -220px; right: -160px; animation: glowfloat 20s ease-in-out infinite alternate-reverse; }
-  .bg-glow-3 { width: 480px; height: 480px; background: radial-gradient(circle, rgba(96,165,250,.16), rgba(96,165,250,0) 70%); top: 38%; left: 52%; animation: glowfloat 24s ease-in-out infinite alternate; }
   @keyframes glowfloat { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,30px) scale(1.08); } }
-  #bg-net { display: block; width: 100%; height: 100%; }
-  @media (prefers-reduced-motion: reduce) { .bg-glow { animation: none; } }
 
-  .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
-  .marquee-track { display: flex; gap: 3.5rem; width: max-content; animation: marquee 34s linear infinite; }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+  /*
+    Replaying animations: the script at the bottom adds the class "play" to a
+    section each time it scrolls into view, and removes it when it leaves.
+    Everything below only animates inside ".play", so it runs again on every visit.
+  */
+  /* Hero drawing: lines draw themselves, floors fill in, chips pop up */
+  .draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .fade-in, .chip { opacity: 0; }
+  .grow { transform-box: fill-box; transform-origin: left; transform: scaleX(0); }
+  .play .draw { animation: draw 1s ease-out forwards; }
+  .play .fade-in { animation: fadein .5s ease-out forwards; }
+  .play .chip { animation: fadein .4s ease-out forwards; }
+  .play .grow { animation: grow .8s ease-out 1s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fadein { to { opacity: 1; } }
+  @keyframes grow { to { transform: scaleX(1); } }
+
+  /* Crane: the trolley slides along the arm and lowers its load, over and over */
+  .play .crane-trolley { animation: trolley 9s ease-in-out 1s infinite; }
+  .play .crane-cable { transform-box: fill-box; transform-origin: top; animation: cable 9s ease-in-out 1s infinite; }
+  .play .crane-load { animation: load 9s ease-in-out 1s infinite; }
+  @keyframes trolley { 0%, 10% { transform: translateX(0); } 35%, 75% { transform: translateX(-50px); } 100% { transform: translateX(0); } }
+  @keyframes cable { 0%, 35% { transform: scaleY(1); } 45%, 60% { transform: scaleY(1.48); } 70%, 100% { transform: scaleY(1); } }
+  @keyframes load { 0%, 35% { transform: translateY(0); } 45%, 60% { transform: translateY(20px); } 70%, 100% { transform: translateY(0); } }
+
+  /* Cards rise in one after another; dashboard bars fill up */
+  .reveal { opacity: 0; translate: 0 8px; }
+  .play .reveal { animation: rise .25s ease-out forwards; animation-delay: calc(var(--i, 0) * 40ms); }
+  @keyframes rise { to { opacity: 1; translate: 0 0; } }
+  .bar { transform-origin: left; transform: scaleX(0); }
+  .play .bar { animation: grow .6s ease-out .1s forwards; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-glow { animation: none; }
+    .draw, .fade-in, .chip, .grow, .reveal, .bar,
+    .crane-trolley, .crane-cable, .crane-load { animation: none !important; stroke-dashoffset: 0; opacity: 1; transform: none; translate: none; }
+  }
 </style>
 </head>
 <body class="bg-background text-ink antialiased font-sans relative min-h-screen">
 
-<!-- Futuristic live background: glowing orbs + animated node network -->
+<!-- Background: blueprint grid + soft glowing orbs -->
 <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="bg-blueprint"></div>
 <div class="bg-glow bg-glow-1"></div>
 <div class="bg-glow bg-glow-2"></div>
-<div class="bg-glow bg-glow-3"></div>
-<canvas id="bg-net"></canvas>
-<script>
-(function () {
-  const canvas = document.getElementById('bg-net');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let w = 0, h = 0, particles = [], raf = null;
-  const mouse = { x: null, y: null };
-
-  function build() {
-    w = canvas.clientWidth; h = canvas.clientHeight;
-    canvas.width = w * dpr; canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(110, Math.round(w * h / 15000));
-    particles = [];
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * w, y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
-        r: Math.random() * 1.4 + 0.8,
-      });
-    }
-  }
-
-  function render() {
-    ctx.clearRect(0, 0, w, h);
-    for (const p of particles) {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0 || p.x > w) p.vx *= -1;
-      if (p.y < 0 || p.y > h) p.vy *= -1;
-    }
-    const LINK = 132;
-    for (let i = 0; i < particles.length; i++) {
-      const a = particles[i];
-      for (let j = i + 1; j < particles.length; j++) {
-        const b = particles[j];
-        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
-        if (d < LINK) {
-          ctx.strokeStyle = 'rgba(96,165,250,' + (1 - d / LINK) * 0.16 + ')';
-          ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-        }
-      }
-      if (mouse.x !== null) {
-        const dx = a.x - mouse.x, dy = a.y - mouse.y, d = Math.hypot(dx, dy);
-        if (d < 170) {
-          ctx.strokeStyle = 'rgba(59,130,246,' + (1 - d / 170) * 0.35 + ')';
-          ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
-        }
-      }
-    }
-    for (const p of particles) {
-      ctx.fillStyle = 'rgba(125,180,255,0.75)';
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
-    }
-  }
-
-  function loop() { render(); raf = requestAnimationFrame(loop); }
-  function start() { if (!raf && !reduce) raf = requestAnimationFrame(loop); }
-  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
-
-  window.addEventListener('resize', build);
-  window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
-
-  build();
-  if (reduce) { render(); } else { start(); }
-})();
-</script>
 </div>
 
 <!-- Content -->
 <div class="relative z-10 w-full min-h-screen flex flex-col">
 
 <!-- Header -->
-<header class="bg-background/80 backdrop-blur-md fixed top-0 w-full border-b border-line flex justify-between items-center px-4 md:px-16 py-4 z-50">
-<a href="#" class="flex items-center gap-2">
+<header class="bg-background/80 backdrop-blur-md fixed top-0 w-full border-b border-line flex justify-between items-center gap-3 px-4 md:px-16 py-4 z-50">
+<a href="#" class="flex items-center gap-2 shrink-0">
 <img src="logo.png" alt="Surharix India Pvt Ltd" class="h-9 md:h-11 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
 <span class="hidden items-center gap-2">
 <span class="material-symbols-outlined text-brand-light text-[28px]">deployed_code</span>
 <span class="font-display text-2xl font-bold tracking-tight text-white">Surharix</span>
 </span>
 </a>
-<nav class="hidden md:flex items-center gap-8 text-sm text-muted">
-<a class="hover:text-white transition-colors" href="#courses">Courses</a>
-<a class="hover:text-white transition-colors" href="#placement">Placement</a>
-<a class="hover:text-white transition-colors" href="#solutions">IT Solutions</a>
-<a class="hover:text-white transition-colors" href="#contact">Contact</a>
+<nav class="hidden lg:flex items-center gap-7 text-sm text-muted">
+<a class="hover:text-white transition-colors" href="#features" data-i18n="nav.features">Features</a>
+<a class="hover:text-white transition-colors" href="#how-it-works" data-i18n="nav.how">How it works</a>
+<a class="hover:text-white transition-colors" href="#who" data-i18n="nav.who">Who it's for</a>
+<a class="hover:text-white transition-colors" href="#faq" data-i18n="nav.faq">FAQ</a>
+<a class="hover:text-white transition-colors" href="#contact" data-i18n="nav.contact">Contact</a>
 </nav>
-<a href="#contact" class="btn-primary text-white font-medium text-sm px-5 py-2.5 rounded-lg">
-  Enquire Now
-</a>
+<div class="flex items-center gap-3">
+<div class="flex items-center border border-line rounded-lg p-0.5 text-sm" role="group" aria-label="Language">
+<button type="button" class="lang-btn" data-lang="en" aria-pressed="true" title="English">EN</button>
+<button type="button" class="lang-btn" data-lang="te" aria-pressed="false" title="తెలుగు" lang="te">తె</button>
+<button type="button" class="lang-btn" data-lang="hi" aria-pressed="false" title="हिन्दी" lang="hi">हि</button>
+</div>
+<a href="#contact" class="btn-accent font-semibold text-sm px-5 py-2.5 rounded-lg whitespace-nowrap hidden sm:inline-block" data-i18n="nav.demo">Book a Demo</a>
+</div>
 </header>
 
 <!-- Main -->
 <main class="flex-grow pt-[88px] flex flex-col gap-20 md:gap-28 pb-24">
 
 <!-- Hero -->
-<section class="px-4 md:px-16 pt-12 md:pt-24 flex flex-col items-start gap-6 max-w-container mx-auto w-full">
+<section class="px-4 md:px-16 pt-12 md:pt-20 max-w-container mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col items-start gap-6">
 <div class="inline-flex items-center gap-2 border border-line bg-surface/60 backdrop-blur-sm px-3 py-1 rounded-full">
-<span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-<span class="font-mono text-xs tracking-widest text-brand-light uppercase">Train · Get Placed · Build</span>
+<span class="w-2 h-2 rounded-full bg-site animate-pulse"></span>
+<span class="font-mono text-xs tracking-widest text-brand-light uppercase" data-i18n="hero.eyebrow">Construction site management</span>
 </div>
-<h1 class="font-display text-4xl md:text-6xl text-white font-bold leading-[1.1] max-w-4xl">
-  Learn in-demand IT skills.<br/>
-<span class="text-muted">Get placed. Get solutions.</span>
-</h1>
-<p class="text-lg text-muted max-w-2xl mt-2 leading-relaxed">
-  Surharix India Pvt Ltd is an IT training and solutions company. We train you in industry skills like
-  Oracle Fusion Cloud, AI and software development, support you with placement through our hiring network,
-  and deliver IT solutions for businesses — all under one roof.
-</p>
-<div class="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
-<a href="#courses" class="btn-primary text-white font-medium px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 w-full sm:w-auto">
-  Explore Courses
+<h1 class="font-display text-4xl md:text-6xl text-white font-bold leading-[1.1] break-words" data-i18n="hero.h1">Track every site.<br/><span class="text-muted">Every brick, every worker, every rupee.</span></h1>
+<p class="text-lg text-muted max-w-xl leading-relaxed" data-i18n="hero.sub">Surharix gives builders one dashboard for <span class="text-ink">work progress, materials, labour, safety and costs</span> across all their construction sites — updated daily from the site, visible instantly in the office.</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-2 w-full sm:w-auto">
+<a href="#contact" class="btn-accent font-semibold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 w-full sm:w-auto">
+<span data-i18n="cta.demo">Book a Free Demo</span>
 <span class="material-symbols-outlined text-lg">arrow_forward</span>
 </a>
-<a href="#solutions" class="border border-line hover:border-brand text-ink hover:text-white font-medium px-7 py-3.5 rounded-lg transition-colors w-full sm:w-auto text-center">
-  IT Solutions for Business
-</a>
+<a href="#how-it-works" class="border border-line hover:border-brand text-ink hover:text-white font-medium px-7 py-3.5 rounded-lg transition-colors w-full sm:w-auto text-center" data-i18n="hero.cta2">See how it works</a>
+</div>
+<ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted mt-2">
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-light text-base">check_circle</span><span data-i18n="chk.progress">Progress</span></li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-light text-base">check_circle</span><span data-i18n="chk.materials">Materials</span></li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-light text-base">check_circle</span><span data-i18n="chk.labour">Labour</span></li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-light text-base">check_circle</span><span data-i18n="chk.safety">Safety</span></li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-light text-base">check_circle</span><span data-i18n="chk.costs">Costs</span></li>
+</ul>
+<p class="text-sm text-muted flex flex-wrap items-center gap-x-2 gap-y-1">
+<span class="material-symbols-outlined text-base text-brand-light">translate</span>
+<span data-i18n="hero.langs">Read this page in:</span>
+<button type="button" class="lang-btn" data-lang="en" aria-pressed="true">English</button>
+<button type="button" class="lang-btn" data-lang="te" aria-pressed="false" lang="te">తెలుగు</button>
+<button type="button" class="lang-btn" data-lang="hi" aria-pressed="false" lang="hi">हिन्दी</button>
+</p>
+</div>
+
+<!-- Hero drawing: a building under construction, drawn like a blueprint (draws once on page load; crane keeps moving) -->
+<div class="play relative w-full max-w-[560px] mx-auto lg:ml-auto" role="img" aria-label="Drawing of a building under construction: five floors completed, the sixth floor in progress and two floors planned, with a tower crane lifting material">
+<svg viewBox="0 0 480 400" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="10" y1="370" x2="470" y2="370" stroke="#60a5fa" stroke-width="2"/>
+<line x1="10" y1="378" x2="470" y2="378" stroke="rgba(96,165,250,.25)" stroke-width="1" stroke-dasharray="3 6"/>
+<!-- floors 1–5: completed -->
+<rect class="fade-in" style="animation-delay:.08s" x="70" y="334" width="220" height="36" fill="rgba(59,130,246,.16)" stroke="#60a5fa" stroke-width="1.5"/>
+<rect class="fade-in" style="animation-delay:.16s" x="70" y="298" width="220" height="36" fill="rgba(59,130,246,.16)" stroke="#60a5fa" stroke-width="1.5"/>
+<rect class="fade-in" style="animation-delay:.24s" x="70" y="262" width="220" height="36" fill="rgba(59,130,246,.16)" stroke="#60a5fa" stroke-width="1.5"/>
+<rect class="fade-in" style="animation-delay:.32s" x="70" y="226" width="220" height="36" fill="rgba(59,130,246,.16)" stroke="#60a5fa" stroke-width="1.5"/>
+<rect class="fade-in" style="animation-delay:.40s" x="70" y="190" width="220" height="36" fill="rgba(59,130,246,.16)" stroke="#60a5fa" stroke-width="1.5"/>
+<!-- floor 6: in progress (orange fills to 60%) -->
+<rect x="70" y="154" width="220" height="36" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
+<rect class="grow" x="70" y="154" width="132" height="36" fill="rgba(245,138,7,.30)" stroke="#F58A07" stroke-width="1.5"/>
+<!-- floors 7–8: planned -->
+<rect x="70" y="118" width="220" height="36" fill="none" stroke="rgba(96,165,250,.45)" stroke-width="1.2" stroke-dasharray="5 5"/>
+<rect x="70" y="82" width="220" height="36" fill="none" stroke="rgba(96,165,250,.45)" stroke-width="1.2" stroke-dasharray="5 5"/>
+<!-- columns -->
+<line class="draw" pathLength="1" x1="70" y1="370" x2="70" y2="154" stroke="#60a5fa" stroke-width="2"/>
+<line class="draw" pathLength="1" x1="143" y1="370" x2="143" y2="154" stroke="#60a5fa" stroke-width="2"/>
+<line class="draw" pathLength="1" x1="217" y1="370" x2="217" y2="154" stroke="#60a5fa" stroke-width="2"/>
+<line class="draw" pathLength="1" x1="290" y1="370" x2="290" y2="154" stroke="#60a5fa" stroke-width="2"/>
+<!-- tower crane -->
+<g stroke="#93c5fd" stroke-width="1.5">
+<line class="draw" pathLength="1" x1="350" y1="370" x2="350" y2="48"/>
+<line class="draw" pathLength="1" x1="366" y1="370" x2="366" y2="48"/>
+<path class="draw" pathLength="1" d="M350 370 L366 350 L350 330 L366 310 L350 290 L366 270 L350 250 L366 230 L350 210 L366 190 L350 170 L366 150 L350 130 L366 110 L350 90 L366 70 L350 50" stroke-width="1" stroke="rgba(147,197,253,.6)"/>
+<line class="draw" pathLength="1" x1="150" y1="48" x2="440" y2="48" stroke-width="2"/>
+<line class="draw" pathLength="1" x1="150" y1="56" x2="366" y2="56" stroke-width="1"/>
+<path class="draw" pathLength="1" d="M358 18 L150 48 M358 18 L440 48 M358 18 L358 48"/>
+</g>
+<rect class="fade-in" style="animation-delay:.8s" x="412" y="56" width="26" height="16" fill="rgba(147,197,253,.25)" stroke="#93c5fd" stroke-width="1.2"/>
+<rect class="fade-in" style="animation-delay:.8s" x="344" y="56" width="28" height="20" rx="2" fill="#0f172a" stroke="#93c5fd" stroke-width="1.2"/>
+<!-- moving trolley + cable + load (loops forever) -->
+<g class="fade-in" style="animation-delay:.9s">
+<g class="crane-trolley">
+<rect x="222" y="44" width="16" height="10" fill="#0f172a" stroke="#93c5fd" stroke-width="1.2"/>
+<line class="crane-cable" x1="230" y1="54" x2="230" y2="96" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 3"/>
+<rect class="crane-load" x="196" y="96" width="68" height="8" fill="rgba(245,138,7,.35)" stroke="#F58A07" stroke-width="1.2"/>
+</g>
+</g>
+</svg>
+<!-- Floating status chips -->
+<div class="chip absolute left-[2%] top-[62%] glass-card rounded-lg px-3 py-2 text-xs flex items-center gap-2" style="animation-delay:1.2s">
+<span class="material-symbols-outlined text-brand-light text-base">check_circle</span><span class="text-ink" data-i18n="chip.floors">Floors 1–5 · <span class="text-muted">done</span></span>
+</div>
+<div class="chip absolute right-[2%] top-[34%] glass-card rounded-lg px-3 py-2 text-xs flex items-center gap-2" style="animation-delay:1.35s">
+<span class="w-2 h-2 rounded-full bg-site"></span><span class="text-ink" data-i18n="chip.floor6">Floor 6 · <span class="text-site-light">60% done</span></span>
+</div>
+<div class="chip absolute right-[2%] top-[72%] glass-card rounded-lg px-3 py-2 text-xs flex items-center gap-2" style="animation-delay:1.5s">
+<span class="material-symbols-outlined text-brand-light text-base">inventory_2</span><span class="text-ink" data-i18n="chip.cement">Cement · <span class="text-muted">340 bags left</span></span>
+</div>
 </div>
 </section>
 
-<!-- Trust badges -->
-<section class="px-4 md:px-16 max-w-container mx-auto w-full -mt-8 md:-mt-12">
-<p class="font-mono text-xs tracking-widest text-muted uppercase text-center mb-8">Skills &amp; platforms we train and work with</p>
-<div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-16">
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/oracle" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Oracle</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/openai" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">OpenAI</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/amazonwebservices" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">AWS</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/microsoftazure" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Microsoft</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/linux" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Linux</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/googlecloud" onerror="this.style.display='none'"/><span class="font-display font-medium text-base">Google Cloud</span></div>
+<!-- The problem -->
+<section id="problem" class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">report</span>
+<span data-i18n="prob.title">Still running your sites on WhatsApp, paper and Excel?</span>
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">01 / THE PROBLEM</span>
+</div>
+<p class="text-muted max-w-2xl leading-relaxed" data-i18n="prob.intro">When updates are scattered across phone messages, notebooks and spreadsheets, the owner finds out about problems late — after the money is already spent.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:0">
+<span class="material-symbols-outlined text-brand-light text-3xl">help</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="prob.c1.t">Unclear progress</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="prob.c1.d">"Slab is done" on WhatsApp — but is it 100% or 60%? No one has the real picture.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:1">
+<span class="material-symbols-outlined text-brand-light text-3xl">inventory_2</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="prob.c2.t">Missing material</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="prob.c2.d">200 cement bags arrived, 150 were used, 20 are left. Where did the other 30 go?</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:2">
+<span class="material-symbols-outlined text-brand-light text-3xl">edit_note</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="prob.c3.t">Paper attendance</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="prob.c3.d">Headcounts in a notebook lead to wrong wages, fake names and disputes.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:3">
+<span class="material-symbols-outlined text-brand-light text-3xl">engineering</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="prob.c4.t">Safety slips</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="prob.c4.d">Workers without helmets or safety belts go unnoticed — until an accident happens.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:4">
+<span class="material-symbols-outlined text-brand-light text-3xl">trending_down</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="prob.c5.t">Budget surprises</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="prob.c5.d">Extra costs are discovered at the end of the project instead of the day they start.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3 justify-center border-l-4 border-l-site" style="--i:5">
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="prob.fix">Surharix brings it all into one place.</h3>
+<a href="#features" class="text-site-light text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all"><span data-i18n="prob.fixlink">See the features</span> <span class="material-symbols-outlined text-base">chevron_right</span></a>
+</div>
 </div>
 </section>
 
-<!-- What we do: two pillars -->
-<section id="about" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<!-- How it works -->
+<section id="how-it-works" class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">account_tree</span>
+<span data-i18n="nav.how">How it works</span>
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">02 / HOW IT WORKS</span>
+</div>
+<p class="text-muted max-w-2xl leading-relaxed" data-i18n="how.intro">From your company down to each task on each site — and back up to one simple dashboard.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:0">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">1</div>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="how.s1.t">Add your sites</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="how.s1.d">Set up your company and every construction site you are running.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:1">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">2</div>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="how.s2.t">Plan the work</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="how.s2.d">Break each site into towers, floors and tasks — with a budget for each.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:2">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">3</div>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="how.s3.t">Update daily</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="how.s3.d">Site supervisors record progress, photos, attendance and material from their phone.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:3">
+<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">4</div>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="how.s4.t">Surharix calculates</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="how.s4.d">Work done vs remaining, stock left, and money spent vs budget — automatically.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3 border-t-2 border-t-site" style="--i:4">
+<div class="w-9 h-9 rounded-full bg-site text-background font-display font-bold flex items-center justify-center">5</div>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="how.s5.t">You see everything</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="how.s5.d">Every site on one dashboard — spot delays and overspending early.</p>
+</div>
+</div>
+</section>
+
+<!-- See it in action: sample dashboard -->
+<section id="demo" class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
 <div class="flex items-center justify-between border-b border-line pb-4">
 <h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
 <span class="material-symbols-outlined text-brand-light">dashboard</span>
-  What we do
+<span data-i18n="demo.title">See it in action</span>
 </h2>
-<span class="font-mono text-xs text-muted hidden md:block">01 / OVERVIEW</span>
+<span class="font-mono text-xs text-muted hidden md:block">03 / DASHBOARD</span>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+<div class="flex flex-col gap-5">
+<h3 class="font-display text-2xl md:text-3xl text-white font-bold leading-snug" data-i18n="demo.h">This is what the owner sees every evening.</h3>
+<p class="text-muted leading-relaxed" data-i18n="demo.p">No calls, no chasing WhatsApp messages. Open the dashboard and see how every site did today — in one screen.</p>
+<ul class="flex flex-col gap-3">
+<li class="flex items-start gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">check_circle</span><span data-i18n="demo.l1">How far each site has progressed</span></li>
+<li class="flex items-start gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">check_circle</span><span data-i18n="demo.l2">Workers present and material left in stock</span></li>
+<li class="flex items-start gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">check_circle</span><span data-i18n="demo.l3">Money spent against the budget</span></li>
+<li class="flex items-start gap-3 text-ink"><span class="material-symbols-outlined text-site text-lg">warning</span><span data-i18n="demo.l4">Safety issues that need attention</span></li>
+</ul>
+<a href="#contact" class="btn-accent font-semibold px-6 py-3 rounded-lg w-full sm:w-fit text-center mt-2" data-i18n="cta.demo">Book a Free Demo</a>
+</div>
+<!-- Sample dashboard (illustration built in HTML — not real customer data) -->
+<div class="glass-card rounded-2xl p-5 md:p-6 w-full" role="img" aria-label="Sample Surharix dashboard showing three construction sites">
+<div class="flex items-center justify-between mb-5">
+<div>
+<p class="font-display text-white font-semibold" data-i18n="dash.title">All sites · Today</p>
+<p class="text-xs text-muted">Example Builders Pvt Ltd</p>
+</div>
+<span class="font-mono text-[10px] tracking-widest uppercase text-muted border border-line rounded-full px-2.5 py-1" data-i18n="dash.sample">Sample view</span>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div class="reveal bg-surface-2/80 border border-line rounded-lg p-3" style="--i:0">
+<p class="text-xs text-muted flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span><span data-i18n="dash.workers">Workers on site</span></p>
+<p class="font-display text-2xl text-white font-bold mt-1">128</p>
+</div>
+<div class="reveal bg-surface-2/80 border border-line rounded-lg p-3" style="--i:1">
+<p class="text-xs text-muted flex items-center gap-1"><span class="material-symbols-outlined text-sm">inventory_2</span><span data-i18n="dash.cement">Cement in stock</span></p>
+<p class="font-display text-2xl text-white font-bold mt-1">340 <span class="text-sm font-medium text-muted" data-i18n="dash.bags">bags</span></p>
+</div>
+<div class="reveal bg-surface-2/80 border border-line rounded-lg p-3" style="--i:2">
+<p class="text-xs text-muted flex items-center gap-1"><span class="material-symbols-outlined text-sm">currency_rupee</span><span data-i18n="dash.budget">Budget used</span></p>
+<p class="font-display text-2xl text-white font-bold mt-1">61%</p>
+</div>
+<div class="reveal bg-surface-2/80 border border-site/40 rounded-lg p-3" style="--i:3">
+<p class="text-xs text-site-light flex items-center gap-1"><span class="material-symbols-outlined text-sm">health_and_safety</span><span data-i18n="dash.safety">Safety alerts</span></p>
+<p class="font-display text-2xl text-site font-bold mt-1">2</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div>
+<div class="flex justify-between text-sm mb-1.5"><span class="text-ink">Kompally Apartments · Tower A</span><span class="text-muted font-mono">68%</span></div>
+<div class="h-2 rounded-full bg-line overflow-hidden"><div class="bar h-full rounded-full bg-brand" style="width:68%"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1.5"><span class="text-ink">Shamshabad Villas</span><span class="text-muted font-mono">42%</span></div>
+<div class="h-2 rounded-full bg-line overflow-hidden"><div class="bar h-full rounded-full bg-brand" style="width:42%"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1.5"><span class="text-ink">Gachibowli Office Block</span><span class="text-muted font-mono">85%</span></div>
+<div class="h-2 rounded-full bg-line overflow-hidden"><div class="bar h-full rounded-full bg-brand" style="width:85%"></div></div>
+</div>
+</div>
+<p class="text-xs text-muted mt-5 pt-4 border-t border-line flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-brand-light">photo_camera</span>
+<span data-i18n="dash.report">Daily report from Kompally site · 6:42 PM · 12 photos</span>
+</p>
+</div>
+</div>
+</section>
+
+<!-- Features -->
+<section id="features" class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">widgets</span>
+<span data-i18n="feat.title">Everything your site needs, in one app</span>
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">04 / FEATURES</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="reveal glass-card rounded-xl p-7 flex flex-col gap-4" style="--i:0">
 <div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
-<span class="material-symbols-outlined text-brand-light">school</span>
+<span class="material-symbols-outlined text-brand-light">query_stats</span>
 </div>
-<h3 class="font-display text-2xl text-white font-bold">Training &amp; Placement</h3>
-<p class="text-muted leading-relaxed">
-  Job-focused training in in-demand IT skills, taught by industry practitioners — followed by
-  placement assistance through our hiring network. We help learners, including freshers and
-  career-switchers, become job-ready and connect them with opportunities.
-</p>
-<a href="#courses" class="mt-2 text-brand-light text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">View courses <span class="material-symbols-outlined text-base">chevron_right</span></a>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="f1.t">Progress tracking</h3>
+<ul class="text-sm text-muted leading-relaxed flex flex-col gap-1.5">
+<li data-i18n="f1.a">• Work done vs work remaining, per task</li>
+<li data-i18n="f1.b">• Daily progress reports with photos</li>
+<li data-i18n="f1.c">• Spot delays before they grow</li>
+</ul>
 </div>
-<div class="glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand">
+<div class="reveal glass-card rounded-xl p-7 flex flex-col gap-4" style="--i:1">
 <div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
-<span class="material-symbols-outlined text-brand-light">build</span>
+<span class="material-symbols-outlined text-brand-light">inventory_2</span>
 </div>
-<h3 class="font-display text-2xl text-white font-bold">IT Solutions</h3>
-<p class="text-muted leading-relaxed">
-  We solve real IT problems for businesses — building software and websites, integrating AI, and
-  providing on-demand technical support. A reliable solutions partner for your projects, without the
-  overhead of hiring a full in-house team.
-</p>
-<a href="#solutions" class="mt-2 text-brand-light text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">Explore solutions <span class="material-symbols-outlined text-base">chevron_right</span></a>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="f2.t">Material tracking</h3>
+<ul class="text-sm text-muted leading-relaxed flex flex-col gap-1.5">
+<li data-i18n="f2.a">• Cement, steel, sand and bricks — in, used, left</li>
+<li data-i18n="f2.b">• Stock per site, always up to date</li>
+<li data-i18n="f2.c">• Catch shortages and wastage early</li>
+</ul>
 </div>
+<div class="reveal glass-card rounded-xl p-7 flex flex-col gap-4" style="--i:2">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">groups</span>
 </div>
-</section>
-
-<!-- Courses -->
-<section id="courses" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
-<div class="flex items-center justify-between border-b border-line pb-4">
-<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
-<span class="material-symbols-outlined text-brand-light">menu_book</span>
-  Our courses
-</h2>
-<span class="font-mono text-xs text-muted hidden md:block">02 / TRAINING</span>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="f3.t">Labour management</h3>
+<ul class="text-sm text-muted leading-relaxed flex flex-col gap-1.5">
+<li data-i18n="f3.a">• Daily attendance and headcount per site</li>
+<li data-i18n="f3.b">• Work hours and wages in one record</li>
+<li data-i18n="f3.c">• No more notebook registers</li>
+</ul>
 </div>
-<p class="text-muted max-w-2xl leading-relaxed">
-  Practical, project-based programs designed to international standards — built to make you job-ready,
-  not just certified.
-</p>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">cloud_sync</span>
-<h3 class="font-display text-lg text-white font-semibold">Oracle Fusion Cloud</h3>
-<p class="text-sm text-muted leading-relaxed">Oracle Fusion / ERP cloud applications and modules for enterprise careers.</p>
+<div class="reveal glass-card rounded-xl p-7 flex flex-col gap-4" style="--i:3">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-site">health_and_safety</span>
 </div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">neurology</span>
-<h3 class="font-display text-lg text-white font-semibold">AI &amp; Machine Learning</h3>
-<p class="text-sm text-muted leading-relaxed">Data science, ML and modern LLMs with hands-on, real-world projects.</p>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="f4.t">Safety &amp; safety gear</h3>
+<ul class="text-sm text-muted leading-relaxed flex flex-col gap-1.5">
+<li data-i18n="f4.a">• Track helmets, safety belts and other gear</li>
+<li data-i18n="f4.b">• Daily safety checks on every site</li>
+<li data-i18n="f4.c">• Record and follow up on accidents</li>
+</ul>
 </div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">code</span>
-<h3 class="font-display text-lg text-white font-semibold">Full-Stack Web Development</h3>
-<p class="text-sm text-muted leading-relaxed">Python, JavaScript, React and APIs — build and ship complete applications.</p>
+<div class="reveal glass-card rounded-xl p-7 flex flex-col gap-4" style="--i:4">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">currency_rupee</span>
 </div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">terminal</span>
-<h3 class="font-display text-lg text-white font-semibold">Linux &amp; System Administration</h3>
-<p class="text-sm text-muted leading-relaxed">Linux fundamentals, shell scripting and server administration skills.</p>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="f5.t">Cost control</h3>
+<ul class="text-sm text-muted leading-relaxed flex flex-col gap-1.5">
+<li data-i18n="f5.a">• Budget vs actual spend for every site</li>
+<li data-i18n="f5.b">• Material, labour and other expenses together</li>
+<li data-i18n="f5.c">• Know your profit while you build</li>
+</ul>
 </div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">cloud</span>
-<h3 class="font-display text-lg text-white font-semibold">Cloud &amp; DevOps</h3>
-<p class="text-sm text-muted leading-relaxed">AWS &amp; Azure, Docker, Kubernetes and CI/CD pipelines for modern delivery.</p>
+<div class="reveal glass-card rounded-xl p-7 flex flex-col gap-4" style="--i:5">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">monitoring</span>
 </div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">database</span>
-<h3 class="font-display text-lg text-white font-semibold">Data Analytics &amp; SQL</h3>
-<p class="text-sm text-muted leading-relaxed">SQL, databases, dashboards and analytics for data-driven roles.</p>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">developer_mode</span>
-<h3 class="font-display text-lg text-white font-semibold">Python Programming</h3>
-<p class="text-sm text-muted leading-relaxed">From fundamentals to automation — the foundation for every IT career.</p>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3 group">
-<span class="material-symbols-outlined text-brand-light text-3xl">security</span>
-<h3 class="font-display text-lg text-white font-semibold">Cybersecurity Essentials</h3>
-<p class="text-sm text-muted leading-relaxed">Security fundamentals and best practices for a safer, in-demand skillset.</p>
-</div>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-l-4 border-l-brand">
-<p class="text-ink"><span class="text-white font-semibold">Don't see your course?</span> We tailor training for individuals and corporate teams.</p>
-<a href="#contact" class="btn-primary text-white font-medium px-6 py-3 rounded-lg whitespace-nowrap">Ask about a course</a>
-</div>
-</section>
-
-<!-- Placement journey -->
-<section id="placement" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
-<div class="flex items-center justify-between border-b border-line pb-4">
-<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
-<span class="material-symbols-outlined text-brand-light">handshake</span>
-  From learning to a career
-</h2>
-<span class="font-mono text-xs text-muted hidden md:block">03 / PLACEMENT</span>
-</div>
-<p class="text-muted max-w-2xl leading-relaxed">
-  Training is only half the journey. We provide placement assistance to help job-seekers — including
-  those currently out of work — turn new skills into real opportunities through our network and connections.
-</p>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
-<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">1</div>
-<h3 class="font-display text-lg text-white font-semibold">Learn</h3>
-<p class="text-sm text-muted leading-relaxed">Master a skill with practical, mentor-led training.</p>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
-<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">2</div>
-<h3 class="font-display text-lg text-white font-semibold">Build Projects</h3>
-<p class="text-sm text-muted leading-relaxed">Create real, portfolio-ready work that employers value.</p>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
-<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">3</div>
-<h3 class="font-display text-lg text-white font-semibold">Get Career-Ready</h3>
-<p class="text-sm text-muted leading-relaxed">Resume building, mock interviews and soft-skills coaching.</p>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
-<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">4</div>
-<h3 class="font-display text-lg text-white font-semibold">Get Referred</h3>
-<p class="text-sm text-muted leading-relaxed">Introductions to roles through our hiring network.</p>
-</div>
-<div class="glass-card rounded-xl p-6 flex flex-col gap-3">
-<div class="w-9 h-9 rounded-full bg-brand text-white font-display font-bold flex items-center justify-center">5</div>
-<h3 class="font-display text-lg text-white font-semibold">Land a Job</h3>
-<p class="text-sm text-muted leading-relaxed">Ongoing support until you start your new career.</p>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="f6.t">Reports &amp; dashboard</h3>
+<ul class="text-sm text-muted leading-relaxed flex flex-col gap-1.5">
+<li data-i18n="f6.a">• All sites on one screen</li>
+<li data-i18n="f6.b">• Daily and weekly reports, ready to share</li>
+<li data-i18n="f6.c">• Clear numbers for owners and partners</li>
+</ul>
 </div>
 </div>
 </section>
 
-<!-- IT Solutions -->
-<section id="solutions" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<!-- Who it's for -->
+<section id="who" class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
 <div class="flex items-center justify-between border-b border-line pb-4">
 <h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
-<span class="material-symbols-outlined text-brand-light">deployed_code</span>
-  IT solutions for business
+<span class="material-symbols-outlined text-brand-light">diversity_3</span>
+<span data-i18n="who.title">Built for everyone who builds</span>
 </h2>
-<span class="font-mono text-xs text-muted hidden md:block">04 / SOLUTIONS</span>
+<span class="font-mono text-xs text-muted hidden md:block">05 / WHO IT'S FOR</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="glass-card rounded-xl p-7 flex flex-col gap-4">
-<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
-<span class="material-symbols-outlined text-brand-light">smart_toy</span>
+<div class="reveal glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand" style="--i:0">
+<span class="material-symbols-outlined text-brand-light text-3xl">apartment</span>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="who.1.t">Builders &amp; contractors</h3>
+<p class="text-muted leading-relaxed" data-i18n="who.1.d">See every site's progress and spending from your office or phone — without waiting for calls and reports.</p>
 </div>
-<h3 class="font-display text-xl text-white font-semibold">AI &amp; Software Development</h3>
-<p class="text-muted leading-relaxed">Custom software and AI-powered tools, built and delivered by our engineering team.</p>
+<div class="reveal glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand" style="--i:1">
+<span class="material-symbols-outlined text-brand-light text-3xl">assignment</span>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="who.2.t">Project managers &amp; engineers</h3>
+<p class="text-muted leading-relaxed" data-i18n="who.2.d">Plan work, track materials and labour across sites, and finish on time and within budget.</p>
 </div>
-<div class="glass-card rounded-xl p-7 flex flex-col gap-4">
-<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
-<span class="material-symbols-outlined text-brand-light">language</span>
-</div>
-<h3 class="font-display text-xl text-white font-semibold">Web &amp; Application Development</h3>
-<p class="text-muted leading-relaxed">Modern, responsive websites and business applications tailored to your needs.</p>
-</div>
-<div class="glass-card rounded-xl p-7 flex flex-col gap-4">
-<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
-<span class="material-symbols-outlined text-brand-light">support_agent</span>
-</div>
-<h3 class="font-display text-xl text-white font-semibold">IT Support &amp; Consulting</h3>
-<p class="text-muted leading-relaxed">On-demand help for IT problems, integrations and technical guidance for your business.</p>
+<div class="reveal glass-card rounded-xl p-8 flex flex-col gap-4 border-l-4 border-l-brand" style="--i:2">
+<span class="material-symbols-outlined text-brand-light text-3xl">engineering</span>
+<h3 class="font-display text-xl text-white font-semibold" data-i18n="who.3.t">Site supervisors</h3>
+<p class="text-muted leading-relaxed" data-i18n="who.3.d">Send daily updates, attendance and photos in a few taps — no more long WhatsApp threads.</p>
 </div>
 </div>
 </section>
 
-<!-- Results / metrics -->
-<section id="results" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<!-- Office + site -->
+<section class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
 <div class="flex items-center justify-between border-b border-line pb-4">
 <h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
-<span class="material-symbols-outlined text-brand-light">trending_up</span>
-  Why Surharix
+<span class="material-symbols-outlined text-brand-light">sync_alt</span>
+<span data-i18n="off.title">Site and office, connected</span>
 </h2>
-<span class="font-mono text-xs text-muted hidden md:block">05 / IMPACT</span>
+<span class="font-mono text-xs text-muted hidden md:block">06 / OFFICE + SITE</span>
 </div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-<div class="glass-card rounded-xl p-6 text-center">
-<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">500+</div>
-<p class="text-sm text-muted mt-2">Learners trained</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="reveal glass-card rounded-xl p-8 flex flex-col gap-4" style="--i:0">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">smartphone</span>
 </div>
-<div class="glass-card rounded-xl p-6 text-center">
-<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">50+</div>
-<p class="text-sm text-muted mt-2">Hiring network partners</p>
+<h3 class="font-display text-2xl text-white font-bold" data-i18n="off.1.t">On site — from the phone</h3>
+<p class="text-muted leading-relaxed" data-i18n="off.1.d">Simple screens for supervisors and engineers to record the day's work, materials, attendance and photos right where it happens.</p>
 </div>
-<div class="glass-card rounded-xl p-6 text-center">
-<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">8+</div>
-<p class="text-sm text-muted mt-2">Industry courses</p>
+<div class="reveal glass-card rounded-xl p-8 flex flex-col gap-4" style="--i:1">
+<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
+<span class="material-symbols-outlined text-brand-light">desktop_windows</span>
 </div>
-<div class="glass-card rounded-xl p-6 text-center">
-<div class="font-display text-4xl md:text-5xl font-bold text-brand-light">100%</div>
-<p class="text-sm text-muted mt-2">Hands-on, project-based</p>
+<h3 class="font-display text-2xl text-white font-bold" data-i18n="off.2.t">In the office — the dashboard</h3>
+<p class="text-muted leading-relaxed" data-i18n="off.2.d">Owners and managers see the full picture across all sites — progress, stock, labour, safety and costs — as soon as updates come in.</p>
 </div>
 </div>
 </section>
 
-<!-- Tech marquee -->
-<section class="flex flex-col gap-8 w-full">
-<div class="px-4 md:px-16 max-w-container mx-auto w-full">
-<p class="font-mono text-xs tracking-widest text-muted uppercase text-center">Technologies we teach &amp; build with</p>
+<!-- Why Surharix -->
+<section id="why" class="replay px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">verified</span>
+<span data-i18n="why.title">Why Surharix</span>
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">07 / WHY US</span>
 </div>
-<div class="marquee w-full">
-<div class="marquee-track">
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/python" onerror="this.style.display='none'"/><span class="font-display font-medium">Python</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/oracle" onerror="this.style.display='none'"/><span class="font-display font-medium">Oracle</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/linux" onerror="this.style.display='none'"/><span class="font-display font-medium">Linux</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/react" onerror="this.style.display='none'"/><span class="font-display font-medium">React</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/amazonwebservices" onerror="this.style.display='none'"/><span class="font-display font-medium">AWS</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/docker" onerror="this.style.display='none'"/><span class="font-display font-medium">Docker</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/kubernetes" onerror="this.style.display='none'"/><span class="font-display font-medium">Kubernetes</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/postgresql" onerror="this.style.display='none'"/><span class="font-display font-medium">SQL</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/pytorch" onerror="this.style.display='none'"/><span class="font-display font-medium">PyTorch</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/git" onerror="this.style.display='none'"/><span class="font-display font-medium">Git</span></div>
-<!-- duplicate for seamless loop -->
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/python" onerror="this.style.display='none'"/><span class="font-display font-medium">Python</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/oracle" onerror="this.style.display='none'"/><span class="font-display font-medium">Oracle</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/linux" onerror="this.style.display='none'"/><span class="font-display font-medium">Linux</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/react" onerror="this.style.display='none'"/><span class="font-display font-medium">React</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/amazonwebservices" onerror="this.style.display='none'"/><span class="font-display font-medium">AWS</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/docker" onerror="this.style.display='none'"/><span class="font-display font-medium">Docker</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/kubernetes" onerror="this.style.display='none'"/><span class="font-display font-medium">Kubernetes</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/postgresql" onerror="this.style.display='none'"/><span class="font-display font-medium">SQL</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/pytorch" onerror="this.style.display='none'"/><span class="font-display font-medium">PyTorch</span></div>
-<div class="logo-item"><img alt="" src="https://cdn.simpleicons.org/git" onerror="this.style.display='none'"/><span class="font-display font-medium">Git</span></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:0">
+<span class="material-symbols-outlined text-brand-light text-3xl">location_city</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="why.1.t">Made for Indian builders</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="why.1.d">Designed around how construction really runs in India — sites, contractors, daily labour and ₹ budgets.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:1">
+<span class="material-symbols-outlined text-brand-light text-3xl">touch_app</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="why.2.t">Simple for site staff</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="why.2.d">If your team can use WhatsApp, they can use Surharix. Few taps, clear screens.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:2">
+<span class="material-symbols-outlined text-brand-light text-3xl">hub</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="why.3.t">All sites, one place</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="why.3.d">One site or twenty — every project, material and worker in a single system.</p>
+</div>
+<div class="reveal glass-card rounded-xl p-6 flex flex-col gap-3" style="--i:3">
+<span class="material-symbols-outlined text-brand-light text-3xl">support_agent</span>
+<h3 class="font-display text-lg text-white font-semibold" data-i18n="why.4.t">Local support</h3>
+<p class="text-sm text-muted leading-relaxed" data-i18n="why.4.d">A Hyderabad-based team that helps you set up and get your sites running.</p>
 </div>
 </div>
 </section>
 
-<!-- Contact -->
+<!-- FAQ -->
+<section id="faq" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
+<div class="flex items-center justify-between border-b border-line pb-4">
+<h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-light">quiz</span>
+<span data-i18n="faq.title">Frequently asked questions</span>
+</h2>
+<span class="font-mono text-xs text-muted hidden md:block">08 / FAQ</span>
+</div>
+<div class="flex flex-col gap-3 max-w-3xl">
+<details class="glass-card rounded-xl px-6 py-5">
+<summary class="flex justify-between items-center gap-4 font-display text-lg text-white font-medium"><span data-i18n="faq.q1">What is Surharix?</span><span class="material-symbols-outlined faq-icon text-brand-light">add</span></summary>
+<p class="text-muted leading-relaxed mt-3" data-i18n="faq.a1">Surharix is construction site management software. It helps builders track work progress, materials, labour, safety and costs across all their sites in one place.</p>
+</details>
+<details class="glass-card rounded-xl px-6 py-5">
+<summary class="flex justify-between items-center gap-4 font-display text-lg text-white font-medium"><span data-i18n="faq.q2">Who is it for?</span><span class="material-symbols-outlined faq-icon text-brand-light">add</span></summary>
+<p class="text-muted leading-relaxed mt-3" data-i18n="faq.a2">Anyone who builds — builders, contractors and developers, big or small — along with their supervisors and site teams.</p>
+</details>
+<details class="glass-card rounded-xl px-6 py-5">
+<summary class="flex justify-between items-center gap-4 font-display text-lg text-white font-medium"><span data-i18n="faq.q3">Can I manage more than one site?</span><span class="material-symbols-outlined faq-icon text-brand-light">add</span></summary>
+<p class="text-muted leading-relaxed mt-3" data-i18n="faq.a3">Yes. Surharix is built for builders running several sites at once, and shows all of them on one dashboard.</p>
+</details>
+<details class="glass-card rounded-xl px-6 py-5">
+<summary class="flex justify-between items-center gap-4 font-display text-lg text-white font-medium"><span data-i18n="faq.q4">My site staff are not very technical. Will they manage?</span><span class="material-symbols-outlined faq-icon text-brand-light">add</span></summary>
+<p class="text-muted leading-relaxed mt-3" data-i18n="faq.a4">Yes. Daily updates take only a few taps on a phone, and our team helps you get everyone started.</p>
+</details>
+<details class="glass-card rounded-xl px-6 py-5">
+<summary class="flex justify-between items-center gap-4 font-display text-lg text-white font-medium"><span data-i18n="faq.q5">How much does it cost?</span><span class="material-symbols-outlined faq-icon text-brand-light">add</span></summary>
+<p class="text-muted leading-relaxed mt-3" data-i18n="faq.a5">Pricing depends on the number of sites and users. Book a free demo and we'll suggest the right plan for your company.</p>
+</details>
+<details class="glass-card rounded-xl px-6 py-5">
+<summary class="flex justify-between items-center gap-4 font-display text-lg text-white font-medium"><span data-i18n="faq.q6">How do I get started?</span><span class="material-symbols-outlined faq-icon text-brand-light">add</span></summary>
+<p class="text-muted leading-relaxed mt-3" data-i18n="faq.a6">Email or call us to book a free demo. We'll show you Surharix using an example like your own project.</p>
+</details>
+</div>
+</section>
+
+<!-- Contact / Book a demo -->
 <section id="contact" class="px-4 md:px-16 flex flex-col gap-8 max-w-container mx-auto w-full scroll-mt-24">
 <div class="flex items-center justify-between border-b border-line pb-4">
 <h2 class="font-display text-2xl md:text-3xl text-white font-semibold flex items-center gap-3">
-<span class="material-symbols-outlined text-brand-light">mail</span>
-  Get in touch
+<span class="material-symbols-outlined text-brand-light">event_available</span>
+<span data-i18n="cta.demo">Book a Free Demo</span>
 </h2>
-<span class="font-mono text-xs text-muted hidden md:block">06 / CONTACT</span>
+<span class="font-mono text-xs text-muted hidden md:block">09 / CONTACT</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
 <div class="flex flex-col gap-5">
-<p class="text-lg text-muted leading-relaxed">
-  Whether you want to train with us, get career &amp; placement support, or need an IT problem solved —
-  reach out and we'll get back to you, usually within one business day.
-</p>
+<p class="text-lg text-muted leading-relaxed" data-i18n="con.p">See how Surharix can track your own sites. Tell us how many sites you run and what you want to control better — we'll show you, step by step.</p>
 <ul class="flex flex-col gap-3">
-<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">school</span> Job-focused training in in-demand IT skills</li>
-<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">handshake</span> Placement assistance through our network</li>
-<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">build</span> IT solutions for your business</li>
+<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">check_circle</span><span data-i18n="con.l1">A walkthrough built around your projects</span></li>
+<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">check_circle</span><span data-i18n="con.l2">Answers to your questions on setup and pricing</span></li>
+<li class="flex items-center gap-3 text-ink"><span class="material-symbols-outlined text-brand-light text-lg">check_circle</span><span data-i18n="con.l3">No obligation to buy</span></li>
 </ul>
 </div>
 <div class="glass-card rounded-xl p-6 md:p-8 flex flex-col gap-5 justify-center">
-<div class="w-12 h-12 bg-surface-2 rounded-lg border border-line flex items-center justify-center">
-<span class="material-symbols-outlined text-brand-light">mail</span>
-</div>
 <div>
-<h3 class="font-display text-xl text-white font-semibold mb-1">Email us</h3>
-<p class="text-muted">Tell us a little about what you need — a course, placement help, or an IT project — and we'll take it from there.</p>
+<h3 class="font-display text-xl text-white font-semibold mb-1" data-i18n="con.talk">Talk to us</h3>
+<p class="text-muted" data-i18n="con.reply">Email or call — we usually reply within one business day.</p>
 </div>
-<a href="mailto:surharixitsolutions@gmail.com?subject=Enquiry%20from%20Surharix%20website" class="btn-primary text-white font-medium px-6 py-3.5 rounded-lg flex items-center justify-center gap-2 break-all">
-<span class="material-symbols-outlined text-lg">mail</span>
+<a href="mailto:surharixitsolutions@gmail.com?subject=Demo%20request%20from%20Surharix%20website" class="btn-accent font-semibold px-6 py-3.5 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">event_available</span>
+<span data-i18n="con.btn">Book a Demo by Email</span>
+</a>
+<a href="tel:+918096224448" class="border border-line hover:border-brand text-ink hover:text-white font-medium px-6 py-3.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">call</span>
+  +91 80962 24448
+</a>
+<a class="text-sm text-muted hover:text-white transition-colors justify-center flex items-center gap-2 break-all" href="mailto:surharixitsolutions@gmail.com">
+<span class="material-symbols-outlined text-base">mail</span>
   surharixitsolutions@gmail.com
 </a>
 <a class="text-sm text-muted hover:text-white transition-colors justify-center flex items-center gap-2" href="https://www.instagram.com/surharix" target="_blank" rel="noopener">
 <span class="material-symbols-outlined text-base">photo_camera</span>
-  @surharix on Instagram
+<span data-i18n="con.insta">@surharix on Instagram</span>
 </a>
 <div class="flex flex-col items-center gap-2">
 <div class="bg-white rounded-lg p-3">
 <img src="instagram-qr.png" alt="Scan to follow @surharix on Instagram" width="128" height="128" class="w-32 h-32"/>
 </div>
-<p class="text-xs text-muted">Scan to follow us on Instagram</p>
+<p class="text-xs text-muted" data-i18n="con.scan">Scan to follow us on Instagram</p>
 </div>
-<p class="text-sm text-muted text-center">We typically reply within one business day.</p>
 </div>
 </div>
 </section>
@@ -526,25 +685,29 @@
 </span>
 </a>
 <p class="text-sm text-muted leading-relaxed">
-  © 2026 Surharix India Pvt Ltd.<br/>IT training, placement assistance &amp; solutions.
+  © 2026 Surharix India Pvt Ltd.<br/><span data-i18n="foot.tag">Construction site management software for builders.</span>
 </p>
 </div>
 <div class="flex flex-col gap-2">
-<h4 class="text-sm font-semibold text-white mb-2">Explore</h4>
-<a class="text-sm text-muted hover:text-white transition-colors" href="#courses">Courses</a>
-<a class="text-sm text-muted hover:text-white transition-colors" href="#placement">Placement</a>
-<a class="text-sm text-muted hover:text-white transition-colors" href="#solutions">IT Solutions</a>
-<a class="text-sm text-muted hover:text-white transition-colors" href="#contact">Contact</a>
+<h4 class="text-sm font-semibold text-white mb-2" data-i18n="foot.product">Product</h4>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#features" data-i18n="nav.features">Features</a>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#how-it-works" data-i18n="nav.how">How it works</a>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#who" data-i18n="nav.who">Who it's for</a>
+<a class="text-sm text-muted hover:text-white transition-colors" href="#faq" data-i18n="nav.faq">FAQ</a>
 </div>
 <div class="flex flex-col gap-2">
-<h4 class="text-sm font-semibold text-white mb-2">Location</h4>
+<h4 class="text-sm font-semibold text-white mb-2" data-i18n="foot.location">Location</h4>
 <p class="text-sm text-muted leading-relaxed">
-  Plot no 23, Phase 4, Panchayati Raj Teachers colony, chaitanya nagar, karmanghat<br/>Hyderabad, Telangana<br/>India 500081
+  Plot No 23, Phase 4, Panchayati Raj Teachers Colony, Karmanghat, Saroornagar<br/>K.V. Rangareddy, Telangana 500079<br/>India
 </p>
 </div>
 <div class="flex flex-col gap-2">
-<h4 class="text-sm font-semibold text-white mb-2">Contact</h4>
-<a class="text-sm text-muted hover:text-white transition-colors flex items-center gap-2" href="mailto:surharixitsolutions@gmail.com">
+<h4 class="text-sm font-semibold text-white mb-2" data-i18n="nav.contact">Contact</h4>
+<a class="text-sm text-muted hover:text-white transition-colors flex items-center gap-2" href="tel:+918096224448">
+<span class="material-symbols-outlined text-base">call</span>
+  +91 80962 24448
+</a>
+<a class="text-sm text-muted hover:text-white transition-colors flex items-center gap-2 break-all" href="mailto:surharixitsolutions@gmail.com">
 <span class="material-symbols-outlined text-base">mail</span>
   surharixitsolutions@gmail.com
 </a>
@@ -553,5 +716,24 @@
 </footer>
 
 </div>
+
+<!-- Replay animations: add "play" when a section scrolls into view, remove it when it leaves -->
+<script>
+(function () {
+  const items = document.querySelectorAll('.replay');
+  if (!('IntersectionObserver' in window)) { items.forEach((el) => el.classList.add('play')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const visible = e.intersectionRect.height > Math.min(window.innerHeight * 0.08, e.boundingClientRect.height * 0.1);
+      if (visible) e.target.classList.add('play');            // start when a good part is on screen
+      else if (!e.isIntersecting) e.target.classList.remove('play'); // reset only once it's fully off screen
+    });
+  }, { threshold: [0, 0.02, 0.05, 0.1, 0.2] });
+  items.forEach((el) => io.observe(el));
+})();
+</script>
+
+<!-- Languages: English / Telugu / Hindi (all translations are in i18n.js) -->
+<script src="i18n.js"></script>
 </body>
 </html>
